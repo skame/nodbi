@@ -58,7 +58,7 @@ docdb_get.src_etcd <- function(src, docid, ...) {
 #' @export
 docdb_get.src_elasticsearch <- function(src, docid, ...){
   ids <- pluck(elastic::Search(docid, source = FALSE,
-                               size = 1000)$hits$hits, "_id", "")
+                               size = 50000)$hits$hits, "_id", "")
   tmp <- elastic::docs_mget(index = docid, type = docid, ids = ids,
                             verbose = FALSE)
   makedf(pluck(tmp$docs, "_source"))
